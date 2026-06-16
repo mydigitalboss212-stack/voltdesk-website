@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoltDesk - Every Quote Followed Up. Every Call Answered. Every Job Won.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><polygon points='16,1 27,1 10,14 21,14 2,27 8,15 -2,15' fill='%23F5C518'/></svg>">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D1B2A;--mid:#1A2D42;--yellow:#F5C518;--grey:#C8D0DA;--dim:#7A8899;--green:#22C55E;--red:#FF6B6B}
+body{font-family:'Inter',sans-serif;background:#0D1B2A;color:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none}
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#1A2D42;border-top:1px solid rgba(255,255,255,0.1);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:999;flex-wrap:wrap}
+#cookie-banner p{font-size:0.825rem;color:#C8D0DA;max-width:700px}
+#cookie-banner a{color:#F5C518;text-decoration:underline}
+.cookie-btns{display:flex;gap:8px;flex-shrink:0}
+.cookie-accept{background:#F5C518;color:#0D1B2A;border:none;padding:0.5rem 1.25rem;border-radius:6px;font-weight:600;font-size:0.825rem;cursor:pointer}
+.cookie-decline{background:transparent;color:#7A8899;border:1px solid rgba(255,255,255,0.15);padding:0.5rem 1.25rem;border-radius:6px;font-size:0.825rem;cursor:pointer}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;background:rgba(13,27,42,0.96);backdrop-filter:blur(12px);z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;color:#fff}
+.logo svg{width:26px;height:26px}
+.nav-cta{background:#F5C518;color:#0D1B2A;padding:0.6rem 1.25rem;border-radius:6px;font-weight:600;font-size:0.875rem;transition:opacity 0.15s}
+.nav-cta:hover{opacity:0.88}
+.hero{max-width:820px;margin:0 auto;padding:5rem 2rem 4rem;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,197,24,0.12);border:1px solid rgba(245,197,24,0.3);color:#F5C518;font-size:0.75rem;font-weight:600;padding:0.3rem 0.8rem;border-radius:20px;margin-bottom:1.75rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.05em}
+.dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-size:clamp(2rem,4.5vw,3.25rem);font-weight:800;line-height:1.15;letter-spacing:-0.03em;margin-bottom:1.25rem}
+.hl{color:#F5C518;font-style:normal}
+.hero-sub{font-size:1.1rem;color:#C8D0DA;max-width:580px;margin:0 auto 2.5rem;line-height:1.75}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-y{background:#F5C518;color:#0D1B2A;padding:0.9rem 2rem;border-radius:8px;font-weight:700;font-size:1rem;display:inline-block;transition:transform 0.15s,opacity 0.15s}
+.btn-y:hover{transform:translateY(-1px);opacity:0.9}
+.btn-w{border:1px solid rgba(255,255,255,0.2);color:#fff;padding:0.9rem 2rem;border-radius:8px;font-size:1rem;display:inline-block;transition:border-color 0.15s}
+.btn-w:hover{border-color:rgba(255,255,255,0.5)}
+.strip{border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:1.5rem 2rem;text-align:center;background:rgba(255,255,255,0.02)}
+.strip p{font-size:0.75rem;color:#7A8899;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1rem}
+.stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.sn{font-size:1.75rem;font-weight:800;color:#F5C518;display:block;letter-spacing:-0.02em}
+.sl{font-size:0.75rem;color:#7A8899;margin-top:2px}
+.sec{max-width:900px;margin:0 auto;padding:5rem 2rem}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#F5C518;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:1rem}
+.desc{color:#C8D0DA;font-size:1.05rem;max-width:580px;margin-bottom:3rem;line-height:1.7}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.pc{background:#1A2D42;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden}
+.pc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FF4444,#FF6B6B)}
+.pi{font-size:1.5rem;display:block;margin-bottom:0.75rem}
+.pc h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem}
+.pc p{font-size:0.875rem;color:#7A8899;line-height:1.6}
+.cost{margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#FF6B6B;font-weight:500}
+.sol-wrap{background:#1A2D42;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.sc{background:rgba(245,197,24,0.04);border:1px solid rgba(245,197,24,0.15);border-radius:12px;padding:1.5rem}
+.sc::before{content:"";display:block;width:32px;height:3px;background:#F5C518;border-radius:2px;margin-bottom:1rem}
+.sc h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem}
+.sc p{font-size:0.875rem;color:#C8D0DA;line-height:1.6}
+.sgrd{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;counter-reset:s}
+.stc{padding:1.5rem;background:#1A2D42;border:1px solid rgba(255,255,255,0.06);border-radius:12px;counter-increment:s}
+.stc::before{content:"0" counter(s);font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#F5C518;font-weight:600;display:block;margin-bottom:0.75rem;letter-spacing:0.05em}
+.stc h3{font-size:0.95rem;font-weight:600;margin-bottom:0.4rem}
+.stc p{font-size:0.825rem;color:#7A8899;line-height:1.6}
+.pgrd3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;max-width:900px;margin:0 auto}
+.prc{background:#1A2D42;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2rem;position:relative}
+.prc.ft{border-color:#F5C518}
+.pbdg{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#F5C518;color:#0D1B2A;font-size:0.68rem;font-weight:700;padding:3px 14px;border-radius:20px;white-space:nowrap;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.05em}
+.pn{font-size:0.78rem;color:#7A8899;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem}
+.pa{font-size:2.25rem;font-weight:800;letter-spacing:-0.03em;line-height:1;margin-bottom:0.25rem}
+.pa span{font-size:0.95rem;font-weight:400;color:#7A8899}
+.ps{font-size:0.78rem;color:#7A8899;margin-bottom:1.5rem}
+.pf{list-style:none;margin-bottom:1.75rem}
+.pf li{font-size:0.85rem;color:#C8D0DA;padding:0.4rem 0;display:flex;gap:8px;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,0.04)}
+.pf li:last-child{border-bottom:none}
+.ck{color:#22C55E;font-weight:700;flex-shrink:0;margin-top:1px}
+.bpr{display:block;text-align:center;padding:0.8rem;border-radius:8px;font-weight:600;font-size:0.9rem;transition:opacity 0.15s;color:#fff;border:1px solid rgba(255,255,255,0.2)}
+.bpr:hover{opacity:0.85}
+.bpr.y{background:#F5C518;color:#0D1B2A;border:none}
+.ctasec{text-align:center;padding:5rem 2rem;border-top:1px solid rgba(255,255,255,0.06)}
+.ctasec h2{max-width:560px;margin:0 auto 1rem}
+.ctasec .desc{text-align:center;max-width:520px;margin:0 auto 2rem}
+.cn{margin-top:1rem;font-size:0.8rem;color:#7A8899}
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem}
+.footer-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem}
+.footer-brand p{font-size:0.825rem;color:#7A8899;margin-top:0.75rem;line-height:1.6}
+.footer-col h4{font-size:0.8rem;font-weight:600;color:#fff;margin-bottom:0.75rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em}
+.footer-col a{display:block;font-size:0.825rem;color:#7A8899;margin-bottom:0.4rem;transition:color 0.15s}
+.footer-col a:hover{color:#F5C518}
+.footer-bottom{max-width:900px;margin:1.5rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+.footer-bottom p{font-size:0.78rem;color:#7A8899}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:998;overflow-y:auto;padding:2rem}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.modal{background:#1A2D42;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2.5rem;max-width:700px;width:100%;margin:auto;position:relative}
+.modal h2{font-size:1.5rem;margin-bottom:1.5rem}
+.modal h3{font-size:1rem;font-weight:600;margin:1.25rem 0 0.5rem;color:#F5C518}
+.modal p,.modal li{font-size:0.875rem;color:#C8D0DA;line-height:1.7;margin-bottom:0.5rem}
+.modal ul{padding-left:1.25rem;margin-bottom:0.75rem}
+.modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:#7A8899;font-size:1.5rem;cursor:pointer;line-height:1}
+.modal-close:hover{color:#fff}
+@media(max-width:720px){.footer-grid{grid-template-columns:1fr;gap:1.5rem}.footer-bottom{flex-direction:column;text-align:center}}
+@media(max-width:600px){nav{padding:1rem}.hero,.sec{padding:3rem 1.25rem}.stats{gap:1.5rem}#cookie-banner{padding:1rem}}
+</style>
+</head>
+<body>
+
+<div id="cookie-banner">
+  <p>We use cookies to improve your experience. By continuing you agree to our <a href="#" onclick="openModal('privacy');return false">Privacy Policy</a> and <a href="#" onclick="openModal('cookies');return false">Cookie Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-decline" onclick="dismissCookie()">Decline</button>
+    <button class="cookie-accept" onclick="dismissCookie()">Accept All</button>
+  </div>
+</div>
+
+<nav>
+  <div class="logo">
+    <svg viewBox="0 0 28 28" fill="none"><polygon points="16,1 27,1 10,14 21,14 2,27 8,15 -2,15" fill="#F5C518"/></svg>
+    VoltDesk
+  </div>
+  <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="nav-cta" target="_blank">Book a Free Call</a>
+</nav>
+
+<section class="hero">
+  <div class="badge"><span class="dot"></span>For UK heat pump and renewable energy installers</div>
+  <h1>Every quote followed up.<br>Every call answered.<br><em class="hl">Every job won.</em></h1>
+  <p class="hero-sub">VoltDesk runs in the background — automatically chasing quotes, recovering missed calls, and collecting reviews — so you can focus on the installs.</p>
+  <div class="btns">
+    <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="btn-y" target="_blank">Book a Free 15-Min Call</a>
+    <a href="#how" class="btn-w">See how it works</a>
+  </div>
+</section>
+
+<div class="strip">
+  <p>Built specifically for UK heat pump and renewable energy installers</p>
+  <div class="stats">
+    <div><span class="sn">Up to £23k</span><span class="sl">Revenue recovered in first 60 days</span></div>
+    <div><span class="sn">Every quote</span><span class="sl">Followed up automatically</span></div>
+    <div><span class="sn">&lt;90 seconds</span><span class="sl">Response time to new enquiries</span></div>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="lbl">The problem</div>
+  <h2>You are losing jobs you have already earned</h2>
+  <p class="desc">Heat pump installers are busy doing the work, not chasing it. These three gaps are silently costing you revenue every single week.</p>
+  <div class="pgrid">
+    <div class="pc">
+      <span class="pi">&#128203;</span>
+      <h3>Quotes that go quiet</h3>
+      <p>You send a detailed quote and never hear back. No follow-up, no second chance. That job goes to whoever picked up the phone next.</p>
+      <div class="cost">&#8594; Avg. loss: £3,500 to £12,000 per month</div>
+    </div>
+    <div class="pc">
+      <span class="pi">&#128222;</span>
+      <h3>Missed calls mean missed jobs</h3>
+      <p>You are on a roof or under a boiler. Phone rings, you cannot answer. The caller contacts the next installer on Google. Gone.</p>
+      <div class="cost">&#8594; Each missed call costs £500 to £8,000</div>
+    </div>
+    <div class="pc">
+      <span class="pi">&#11088;</span>
+      <h3>No Google reviews</h3>
+      <p>Happy customers intend to leave a review but forget. A 3.8 star rating quietly loses you jobs to a competitor with 4.7 stars every day.</p>
+      <div class="cost">&#8594; Sub-4 star rating loses 70% of searchers</div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-wrap">
+  <div class="sec">
+    <div class="lbl">The solution</div>
+    <h2>VoltDesk runs in the background.<br>You run the installs.</h2>
+    <p class="desc">Four automations working around the clock while you focus on the job in front of you.</p>
+    <div class="sgrid">
+      <div class="sc">
+        <h3>Quote Follow-Up Sequence</h3>
+        <p>Every quote triggers an automatic 5-touch follow-up over 14 days via SMS and email. No manual chasing. Ever.</p>
+      </div>
+      <div class="sc">
+        <h3>Missed Call Text-Back</h3>
+        <p>Miss a call? VoltDesk sends an instant SMS within 30 seconds. The conversation starts. The job is saved.</p>
+      </div>
+      <div class="sc">
+        <h3>Automatic Review Requests</h3>
+        <p>24 hours after every completed job your customer gets a personalised review request. Your Google rating climbs while you sleep.</p>
+      </div>
+      <div class="sc">
+        <h3>Live Lead Pipeline</h3>
+        <p>Every enquiry tracked from first contact to completed job. See exactly where every lead is in real time from your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how">
+  <div class="lbl">How it works</div>
+  <h2>Up and running in 48 hours</h2>
+  <p class="desc">No long setup. No tech headaches. We build everything for you.</p>
+  <div class="sgrd">
+    <div class="stc">
+      <h3>Book a free call</h3>
+      <p>15 minutes. We learn about your business and show you exactly what VoltDesk will do for you. No pitch, no pressure.</p>
+    </div>
+    <div class="stc">
+      <h3>We build your system</h3>
+      <p>We set up your pipeline, automations, and phone number in 48 hours. Completely done for you.</p>
+    </div>
+    <div class="stc">
+      <h3>Go live</h3>
+      <p>VoltDesk starts working immediately. Most clients recover their first quote or missed call within the first week.</p>
+    </div>
+    <div class="stc">
+      <h3>Track your results</h3>
+      <p>Monthly report delivered to your inbox showing every quote followed up, every review collected, every lead captured.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0" id="pricing">
+  <div class="lbl" style="text-align:center">Pricing</div>
+  <h2 style="text-align:center;margin-bottom:0.5rem">Simple, transparent pricing</h2>
+  <p class="desc" style="text-align:center;max-width:520px;margin:0 auto 2.5rem">No hidden costs. No long contracts. Cancel any time after 3 months.</p>
+  <div class="pgrd3">
+    <div class="prc">
+      <div class="pn">Essential</div>
+      <div class="pa">£497<span>/mo</span></div>
+      <div class="ps">+ £300 one-time setup fee</div>
+      <ul class="pf">
+        <li><span class="ck">&#10003;</span>Missed call text-back (24/7)</li>
+        <li><span class="ck">&#10003;</span>Lead pipeline CRM</li>
+        <li><span class="ck">&#10003;</span>New enquiry instant response</li>
+        <li><span class="ck">&#10003;</span>Monthly performance report</li>
+        <li><span class="ck">&#10003;</span>Email support</li>
+      </ul>
+      <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="bpr" target="_blank">Book a Call</a>
+    </div>
+    <div class="prc ft">
+      <div class="pbdg">Most Popular</div>
+      <div class="pn">Growth</div>
+      <div class="pa">£997<span>/mo</span></div>
+      <div class="ps">+ £500 one-time setup fee</div>
+      <ul class="pf">
+        <li><span class="ck">&#10003;</span>Everything in Essential</li>
+        <li><span class="ck">&#10003;</span>14-day quote follow-up sequence</li>
+        <li><span class="ck">&#10003;</span>Automatic review requests</li>
+        <li><span class="ck">&#10003;</span>Post-job customer follow-up</li>
+        <li><span class="ck">&#10003;</span>Priority email support</li>
+      </ul>
+      <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="bpr y" target="_blank">Book a Call</a>
+    </div>
+    <div class="prc">
+      <div class="pn">Pro</div>
+      <div class="pa">£1,997<span>/mo</span></div>
+      <div class="ps">+ £500 one-time setup fee</div>
+      <ul class="pf">
+        <li><span class="ck">&#10003;</span>Everything in Growth</li>
+        <li><span class="ck">&#10003;</span>AI enquiry qualification bot</li>
+        <li><span class="ck">&#10003;</span>Maintenance renewal campaigns</li>
+        <li><span class="ck">&#10003;</span>BUS grant nurture sequence</li>
+        <li><span class="ck">&#10003;</span>Same-day priority support</li>
+      </ul>
+      <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="bpr" target="_blank">Book a Call</a>
+    </div>
+  </div>
+</section>
+
+<div class="ctasec">
+  <div class="lbl">Get started</div>
+  <h2>Ready to win every job you quote?</h2>
+  <p class="desc">Book a free 15-minute call. No pitch. Just a straight conversation about what VoltDesk can do for your business this week.</p>
+  <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" class="btn-y" target="_blank">Book Your Free Call</a>
+  <p class="cn">15 minutes &nbsp;&#183;&nbsp; No commitment &nbsp;&#183;&nbsp; UK heat pump installers only</p>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <svg viewBox="0 0 28 28" fill="none" width="22" height="22"><polygon points="16,1 27,1 10,14 21,14 2,27 8,15 -2,15" fill="#F5C518"/></svg>
+        VoltDesk
+      </div>
+      <p>VoltDesk is a trading name of Naeem Feroz.<br>hello@voltdeskapp.com<br><a href="tel:07353884435" style="color:#7A8899">07353 884435</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://api.leadconnectorhq.com/widget/bookings/voltdesk-discovery-call" target="_blank">Book a call</a>
+      <a href="https://app.voltdeskapp.com" target="_blank">Client login</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#" onclick="openModal('privacy');return false">Privacy Policy</a>
+      <a href="#" onclick="openModal('terms');return false">Terms &amp; Conditions</a>
+      <a href="#" onclick="openModal('cookies');return false">Cookie Policy</a>
+      <a href="mailto:hello@voltdeskapp.com">hello@voltdeskapp.com</a>
+      <a href="tel:07353884435">07353 884435</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 VoltDesk. VoltDesk is a trading name of Naeem Feroz. All rights reserved.</p>
+    <p>UK heat pump installer automation software</p>
+  </div>
+</footer>
+
+<!-- PRIVACY POLICY -->
+<div class="modal-overlay" id="modal-privacy">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('privacy')">&times;</button>
+    <h2>Privacy Policy</h2>
+    <p><strong>Last updated: 2025</strong></p>
+    <p>This Privacy Policy explains how VoltDesk, a trading name of Naeem Feroz, collects, uses, and protects your personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.</p>
+    <h3>1. Who we are</h3>
+    <p>VoltDesk is a trading name of Naeem Feroz, United Kingdom. Contact: hello@voltdeskapp.com</p>
+    <h3>2. What data we collect</h3>
+    <ul>
+      <li>Name and email address when you book a call or contact us</li>
+      <li>Phone number when provided</li>
+      <li>Business name and details</li>
+      <li>Usage data and cookies</li>
+    </ul>
+    <h3>3. How we use your data</h3>
+    <ul>
+      <li>To respond to your enquiries and provide our services</li>
+      <li>To send service-related communications</li>
+      <li>To improve our website and services</li>
+    </ul>
+    <h3>4. Legal basis</h3>
+    <p>We process your data on the basis of legitimate interest and, where applicable, your consent.</p>
+    <h3>5. Data retention</h3>
+    <p>We retain your data for as long as necessary to provide our services, typically no longer than 3 years after last contact.</p>
+    <h3>6. Your rights</h3>
+    <p>Under UK GDPR you have the right to access, rectify, erase, and port your data. Contact hello@voltdeskapp.com to exercise your rights.</p>
+    <h3>7. Third parties</h3>
+    <p>We use GoHighLevel for CRM and Stripe for payments. Each operates under their own privacy policies.</p>
+    <h3>8. Contact</h3>
+    <p>hello@voltdeskapp.com</p>
+  </div>
+</div>
+
+<!-- TERMS -->
+<div class="modal-overlay" id="modal-terms">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('terms')">&times;</button>
+    <h2>Terms &amp; Conditions</h2>
+    <p><strong>Last updated: 2025</strong></p>
+    <h3>1. Agreement</h3>
+    <p>By using VoltDesk services you agree to these Terms. VoltDesk is a trading name of Naeem Feroz, United Kingdom.</p>
+    <h3>2. Services</h3>
+    <p>VoltDesk provides marketing automation software and managed services for trade businesses. Service scope is defined in your individual service agreement.</p>
+    <h3>3. Payment</h3>
+    <p>Monthly fees are charged in advance. Setup fees are non-refundable. All prices are exclusive of VAT where applicable. A minimum 3-month commitment applies to all plans.</p>
+    <h3>4. Cancellation</h3>
+    <p>You may cancel after the minimum 3-month period with 30 days written notice to hello@voltdeskapp.com.</p>
+    <h3>5. Intellectual property</h3>
+    <p>All automation systems, workflows, and templates built by VoltDesk remain the intellectual property of Naeem Feroz trading as VoltDesk unless otherwise agreed in writing.</p>
+    <h3>6. Limitation of liability</h3>
+    <p>VoltDesk shall not be liable for indirect or consequential losses. Our total liability shall not exceed the fees paid in the 3 months prior to any claim.</p>
+    <h3>7. Governing law</h3>
+    <p>These Terms are governed by the laws of England and Wales.</p>
+    <h3>8. Contact</h3>
+    <p>hello@voltdeskapp.com</p>
+  </div>
+</div>
+
+<!-- COOKIES -->
+<div class="modal-overlay" id="modal-cookies">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('cookies')">&times;</button>
+    <h2>Cookie Policy</h2>
+    <p><strong>Last updated: 2025</strong></p>
+    <p>This website uses cookies to improve your experience and analyse site usage.</p>
+    <h3>What are cookies?</h3>
+    <p>Cookies are small text files stored on your device when you visit a website.</p>
+    <h3>Cookies we use</h3>
+    <ul>
+      <li><strong>Essential cookies:</strong> Required for the website to function. Cannot be disabled.</li>
+      <li><strong>Analytics cookies:</strong> Help us understand visitor behaviour. Set only with your consent.</li>
+      <li><strong>Functional cookies:</strong> Remember your preferences such as cookie consent.</li>
+    </ul>
+    <h3>Managing cookies</h3>
+    <p>You can control cookies through your browser settings. Disabling certain cookies may affect website functionality.</p>
+    <h3>Contact</h3>
+    <p>hello@voltdeskapp.com</p>
+  </div>
+</div>
+
+<script>
+function dismissCookie(){
+  document.getElementById('cookie-banner').style.display='none';
+  localStorage.setItem('vd-cookies','accepted');
+}
+if(localStorage.getItem('vd-cookies')){
+  document.getElementById('cookie-banner').style.display='none';
+}
+function openModal(t){
+  document.getElementById('modal-'+t).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(t){
+  document.getElementById('modal-'+t).classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.modal-overlay').forEach(function(el){
+  el.addEventListener('click',function(e){
+    if(e.target===el){el.classList.remove('open');document.body.style.overflow='';}
+  });
+});
+</script>
+</body>
+</html>
