@@ -197,7 +197,7 @@ function calculateLostRevenue() {
   document.getElementById('calc-result').style.display = 'block';
 }
 
-async function submitCalcEmail() {
+function submitCalcEmail() {
   const name = document.getElementById('calc-name').value.trim();
   const email = document.getElementById('calc-email').value.trim();
   const jobValue = document.getElementById('calc-job-value').value;
@@ -208,28 +208,35 @@ async function submitCalcEmail() {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('formId', '1tuh5bDBPNOK3yxzm2F6');
-  formData.append('location_id', '0GqIAJgv6XJg3ETws7wJ');
-  formData.append('first_name', name);
-  formData.append('email', email);
-  formData.append('job_value', jobValue);
-  formData.append('missed_calls', missedCalls);
-  formData.append('lost_revenue', Math.round(calculatedLostRevenue));
+  // Fill fields inside hidden GHL iframe and submit
+  const iframe = document.getElementById('ghl-hidden-frame');
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
 
   try {
-    await fetch('https://backend.leadconnectorhq.com/forms/submit', {
-      method: 'POST',
-      body: formData
-    });
+    doc.querySelector('[name="first_name"]').value = name;
+    doc.querySelector('[name="email"]').value = email;
+    doc.querySelector('[name="TKJ3eCjvwDGiyzqscxz"]').value = jobValue;
+    doc.querySelector('[name="NI57Qva6Lcp2v7xoCXR"]').value = missedCalls;
+
+    // Submit the hidden form
+    const submitBtn = doc.querySelector('[type="submit"]');
+    if (submitBtn) submitBtn.click();
   } catch(e) {
-    console.log('GHL submission error:', e);
+    console.log('GHL iframe submit error:', e);
   }
 
   document.getElementById('calc-email-capture').style.display = 'none';
   document.getElementById('calc-email-success').style.display = 'block';
 }
 </script>
+
+<!-- Hidden GHL form iframe - handles submission natively, no CORS issues -->
+<iframe 
+  id="ghl-hidden-frame" 
+  src="https://api.leadconnectorhq.com/widget/form/1tuh5bDBPNOK3yxzm2F6" 
+  style="display:none;width:1px;height:1px;border:none"
+  title="hidden-form-submit">
+</iframe>
 
 
 <section class="sec">
