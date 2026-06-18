@@ -153,10 +153,12 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem}
 <section class="sec" style="padding-top:0" id="calc">
   <div class="lbl" style="text-align:center">Free tool</div>
   <h2 style="text-align:center;margin-bottom:0.5rem">How much are missed calls really costing you?</h2>
-  <p class="desc" style="text-align:center;margin:0 auto 2.5rem;max-width:520px">Enter your numbers below and find out in 10 seconds.</p>
+  <p class="desc" style="text-align:center;margin:0 auto 2.5rem;max-width:520px">Enter your numbers — we'll show you the real figure.</p>
 
-  <div style="max-width:560px;margin:0 auto;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2.5rem">
-    <div id="calc-form">
+  <div style="max-width:560px;margin:0 auto">
+
+    <!-- Step 1: Calculator inputs -->
+    <div id="calc-step1" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2.5rem">
       <div style="margin-bottom:1.25rem">
         <label style="display:block;color:#C8D0DA;font-size:0.9rem;margin-bottom:0.4rem">Average job value (£)</label>
         <input type="number" id="calc-job-value" placeholder="e.g. 9000" style="width:100%;padding:0.8rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:1rem">
@@ -165,78 +167,72 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem}
         <label style="display:block;color:#C8D0DA;font-size:0.9rem;margin-bottom:0.4rem">Missed calls per week</label>
         <input type="number" id="calc-missed-calls" placeholder="e.g. 5" style="width:100%;padding:0.8rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:1rem">
       </div>
-      <button onclick="calculateLostRevenue()" class="btn-y" style="width:100%;text-align:center;border:none;cursor:pointer">Calculate My Lost Revenue</button>
+      <button onclick="showEmailGate()" class="btn-y" style="width:100%;text-align:center;border:none;cursor:pointer">Show Me What I'm Losing</button>
     </div>
 
-    <div id="calc-result" style="display:none;text-align:center;margin-top:1rem">
-      <p style="color:#C8D0DA;font-size:0.95rem;margin-bottom:0.5rem">Based on your numbers, you could be losing approximately</p>
-      <p id="calc-result-amount" style="color:#F5C518;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem">£0</p>
-      <p style="color:#C8D0DA;font-size:0.95rem;margin-bottom:1.5rem">a year to missed calls alone &mdash; assuming just 15% of those calls would have become paying jobs if followed up.</p>
-      <div id="calc-email-capture">
-        <label style="display:block;color:#C8D0DA;font-size:0.9rem;margin-bottom:0.4rem;text-align:left">Get this breakdown sent to your inbox</label>
-        <input type="text" id="calc-name" placeholder="First name" style="width:100%;padding:0.8rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:1rem;margin-bottom:0.75rem">
-        <input type="email" id="calc-email" placeholder="Email address" style="width:100%;padding:0.8rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:1rem;margin-bottom:0.75rem">
-        <button onclick="submitCalcEmail()" class="btn-y" style="width:100%;text-align:center;border:none;cursor:pointer">Email Me My Results</button>
-      </div>
-      <p id="calc-email-success" style="display:none;color:#F5C518;font-size:0.95rem;margin-top:1rem">Thanks! Check your inbox shortly.</p>
+    <!-- Step 2: GHL email capture form (gated) -->
+    <div id="calc-step2" style="display:none">
+      <p style="text-align:center;color:#C8D0DA;font-size:0.95rem;margin-bottom:1.25rem">Enter your details to see your number and get the full breakdown emailed to you.</p>
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/1tuh5bDBPNOK3yxzm2F6"
+        style="width:100%;height:480px;border:none;border-radius:16px"
+        id="ghl-calc-form"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Missed Call Calculator - Lead Capture"
+        data-height="480"
+        data-layout-iframe-id="ghl-calc-form"
+        data-form-id="1tuh5bDBPNOK3yxzm2F6"
+        title="Missed Call Calculator - Lead Capture">
+      </iframe>
+      <script src="https://link.msgsndr.com/js/form_embed.js"></script>
     </div>
+
+    <!-- Step 3: Result reveal (shown after GHL form submits) -->
+    <div id="calc-step3" style="display:none;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2.5rem;text-align:center">
+      <p style="color:#C8D0DA;font-size:0.95rem;margin-bottom:0.5rem">Based on your numbers, you could be losing approximately</p>
+      <p id="calc-result-amount" style="color:#F5C518;font-size:2.8rem;font-weight:700;margin-bottom:0.5rem">£0</p>
+      <p style="color:#C8D0DA;font-size:0.95rem;margin-bottom:1.5rem">a year — assuming just 15% of missed calls would have become paying jobs if followed up promptly.</p>
+      <p style="color:#7A8899;font-size:0.85rem">The full breakdown is on its way to your inbox.</p>
+    </div>
+
   </div>
 </section>
 
 <script>
 let calculatedLostRevenue = 0;
 
-function calculateLostRevenue() {
+function showEmailGate() {
   const jobValue = parseFloat(document.getElementById('calc-job-value').value) || 0;
   const missedCalls = parseFloat(document.getElementById('calc-missed-calls').value) || 0;
-  const annualMissedCalls = missedCalls * 52;
-  const closeRate = 0.15;
-  calculatedLostRevenue = annualMissedCalls * closeRate * jobValue;
-  document.getElementById('calc-result-amount').textContent = '£' + Math.round(calculatedLostRevenue).toLocaleString('en-GB');
-  document.getElementById('calc-form').style.display = 'none';
-  document.getElementById('calc-result').style.display = 'block';
-}
 
-function submitCalcEmail() {
-  const name = document.getElementById('calc-name').value.trim();
-  const email = document.getElementById('calc-email').value.trim();
-  const jobValue = document.getElementById('calc-job-value').value;
-  const missedCalls = document.getElementById('calc-missed-calls').value;
-
-  if (!name || !email) {
-    alert('Please enter your name and email');
+  if (!jobValue || !missedCalls) {
+    alert('Please enter both your average job value and missed calls per week');
     return;
   }
 
-  // Fill fields inside hidden GHL iframe and submit
-  const iframe = document.getElementById('ghl-hidden-frame');
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  const annualMissedCalls = missedCalls * 52;
+  const closeRate = 0.15;
+  calculatedLostRevenue = Math.round(annualMissedCalls * closeRate * jobValue);
 
-  try {
-    doc.querySelector('[name="first_name"]').value = name;
-    doc.querySelector('[name="email"]').value = email;
-    doc.querySelector('[name="TKJ3eCjvwDGiyzqscxz"]').value = jobValue;
-    doc.querySelector('[name="NI57Qva6Lcp2v7xoCXR"]').value = missedCalls;
-
-    // Submit the hidden form
-    const submitBtn = doc.querySelector('[type="submit"]');
-    if (submitBtn) submitBtn.click();
-  } catch(e) {
-    console.log('GHL iframe submit error:', e);
-  }
-
-  document.getElementById('calc-email-capture').style.display = 'none';
-  document.getElementById('calc-email-success').style.display = 'block';
+  document.getElementById('calc-result-amount').textContent = '£' + calculatedLostRevenue.toLocaleString('en-GB');
+  document.getElementById('calc-step1').style.display = 'none';
+  document.getElementById('calc-step2').style.display = 'block';
 }
-</script>
 
-<!-- Hidden GHL form iframe - handles submission natively, no CORS issues -->
-<iframe 
-  id="ghl-hidden-frame" 
-  src="https://api.leadconnectorhq.com/widget/form/1tuh5bDBPNOK3yxzm2F6" 
-  style="display:none;width:1px;height:1px;border:none"
-  title="hidden-form-submit">
-</iframe>
+// Listen for GHL form submission success message
+window.addEventListener('message', function(event) {
+  if (event.data && (event.data.type === 'form_submitted' || event.data === 'form_submitted' || (typeof event.data === 'string' && event.data.includes('submitted')))) {
+    document.getElementById('calc-step2').style.display = 'none';
+    document.getElementById('calc-step3').style.display = 'block';
+  }
+});
+</script>
 
 
 <section class="sec">
