@@ -184,28 +184,53 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem}
 </section>
 
 <script>
+let calculatedLostRevenue = 0;
+
 function calculateLostRevenue() {
   const jobValue = parseFloat(document.getElementById('calc-job-value').value) || 0;
   const missedCalls = parseFloat(document.getElementById('calc-missed-calls').value) || 0;
   const annualMissedCalls = missedCalls * 52;
   const closeRate = 0.15;
-  const lostRevenue = annualMissedCalls * closeRate * jobValue;
-  document.getElementById('calc-result-amount').textContent = '£' + Math.round(lostRevenue).toLocaleString('en-GB');
+  calculatedLostRevenue = annualMissedCalls * closeRate * jobValue;
+  document.getElementById('calc-result-amount').textContent = '£' + Math.round(calculatedLostRevenue).toLocaleString('en-GB');
   document.getElementById('calc-form').style.display = 'none';
   document.getElementById('calc-result').style.display = 'block';
 }
 
-function submitCalcEmail() {
-  const name = document.getElementById('calc-name').value;
-  const email = document.getElementById('calc-email').value;
+async function submitCalcEmail() {
+  const name = document.getElementById('calc-name').value.trim();
+  const email = document.getElementById('calc-email').value.trim();
+  const jobValue = document.getElementById('calc-job-value').value;
+  const missedCalls = document.getElementById('calc-missed-calls').value;
+
   if (!name || !email) {
     alert('Please enter your name and email');
     return;
   }
+
+  const formData = new FormData();
+  formData.append('formId', '1tuh5bDBPNOK3yxzm2F6');
+  formData.append('location_id', '0GqIAJgv6XJg3ETws7wJ');
+  formData.append('first_name', name);
+  formData.append('email', email);
+  formData.append('job_value', jobValue);
+  formData.append('missed_calls', missedCalls);
+  formData.append('lost_revenue', Math.round(calculatedLostRevenue));
+
+  try {
+    await fetch('https://backend.leadconnectorhq.com/forms/submit', {
+      method: 'POST',
+      body: formData
+    });
+  } catch(e) {
+    console.log('GHL submission error:', e);
+  }
+
   document.getElementById('calc-email-capture').style.display = 'none';
   document.getElementById('calc-email-success').style.display = 'block';
 }
 </script>
+
 
 <section class="sec">
   <div class="lbl">The problem</div>
