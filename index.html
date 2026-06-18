@@ -173,23 +173,26 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem}
     <!-- Step 2: GHL email capture form (gated) -->
     <div id="calc-step2" style="display:none">
       <p style="text-align:center;color:#C8D0DA;font-size:0.95rem;margin-bottom:1.25rem">Enter your details to see your number and get the full breakdown emailed to you.</p>
-      <iframe
-        src="https://api.leadconnectorhq.com/widget/form/1tuh5bDBPNOK3yxzm2F6"
-        style="width:100%;height:480px;border:none;border-radius:16px"
-        id="ghl-calc-form"
-        data-layout="{'id':'INLINE'}"
-        data-trigger-type="alwaysShow"
-        data-trigger-value=""
-        data-activation-type="alwaysActivated"
-        data-activation-value=""
-        data-deactivation-type="neverDeactivate"
-        data-deactivation-value=""
-        data-form-name="Missed Call Calculator - Lead Capture"
-        data-height="480"
-        data-layout-iframe-id="ghl-calc-form"
-        data-form-id="1tuh5bDBPNOK3yxzm2F6"
-        title="Missed Call Calculator - Lead Capture">
-      </iframe>
+      <!-- Wrapper fades in after GHL CSS loads to prevent white flash -->
+      <div id="ghl-iframe-wrapper" style="opacity:0;transition:opacity 0.4s ease;border-radius:16px;overflow:hidden">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/1tuh5bDBPNOK3yxzm2F6"
+          style="width:100%;height:420px;border:none;display:block"
+          id="ghl-calc-form"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Missed Call Calculator - Lead Capture"
+          data-height="420"
+          data-layout-iframe-id="ghl-calc-form"
+          data-form-id="1tuh5bDBPNOK3yxzm2F6"
+          title="Missed Call Calculator - Lead Capture">
+        </iframe>
+      </div>
       <script src="https://link.msgsndr.com/js/form_embed.js"></script>
     </div>
 
@@ -220,16 +223,34 @@ function showEmailGate() {
   const closeRate = 0.15;
   calculatedLostRevenue = Math.round(annualMissedCalls * closeRate * jobValue);
 
+  // Store in sessionStorage so we can retrieve it after redirect
+  sessionStorage.setItem('calc_lost_revenue', calculatedLostRevenue);
+
   document.getElementById('calc-result-amount').textContent = '£' + calculatedLostRevenue.toLocaleString('en-GB');
   document.getElementById('calc-step1').style.display = 'none';
   document.getElementById('calc-step2').style.display = 'block';
+
+  // Fade in iframe after 1.2s to avoid white flash while GHL CSS loads
+  setTimeout(function() {
+    const wrapper = document.getElementById('ghl-iframe-wrapper');
+    if (wrapper) wrapper.style.opacity = '1';
+  }, 1200);
 }
 
-// Listen for GHL form submission success message
-window.addEventListener('message', function(event) {
-  if (event.data && (event.data.type === 'form_submitted' || event.data === 'form_submitted' || (typeof event.data === 'string' && event.data.includes('submitted')))) {
+// Check if visitor just returned from GHL redirect after form submit
+window.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('calc') === 'done') {
+    const saved = sessionStorage.getItem('calc_lost_revenue');
+    if (saved) {
+      document.getElementById('calc-result-amount').textContent = '£' + parseInt(saved).toLocaleString('en-GB');
+    }
+    document.getElementById('calc-step1').style.display = 'none';
     document.getElementById('calc-step2').style.display = 'none';
     document.getElementById('calc-step3').style.display = 'block';
+
+    // Clean up URL without reloading page
+    window.history.replaceState({}, document.title, window.location.pathname + '#calc');
   }
 });
 </script>
